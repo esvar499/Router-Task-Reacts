@@ -1,19 +1,23 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+// src/components/Dashboard.js
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function Dashboard() {
   const [posts, setPosts] = useState([]);
-  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const postsResponse = await axios.get('https://jsonplaceholder.typicode.com/posts');
-      const usersResponse = await axios.get('https://jsonplaceholder.typicode.com/users');
-      setPosts(postsResponse.data);
-      setUsers(usersResponse.data);
+    // Fetch posts when the component mounts
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+        setPosts(response.data);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
     };
-    fetchData();
+
+    fetchPosts();
   }, []);
 
   return (
@@ -21,17 +25,11 @@ function Dashboard() {
       <h1>Dashboard</h1>
       <h2>Posts</h2>
       <ul>
-        {posts.map((post) => (
+        {posts.map(post => (
           <li key={post.id}>
-            <Link to={`/details/post/${post.id}`}>{post.title}</Link>
-          </li>
-        ))}
-      </ul>
-      <h2>Users</h2>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>
-            <Link to={`/details/user/${user.id}`}>{user.name}</Link>
+            <Link to={`/details/post/${post.id}`}>
+              {post.title}
+            </Link>
           </li>
         ))}
       </ul>

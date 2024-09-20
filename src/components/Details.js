@@ -1,44 +1,34 @@
-import { useEffect, useState } from 'react';
+// src/components/Details.js
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function Details() {
-  const { type, id } = useParams();
-  const [data, setData] = useState(null);
+  const { id } = useParams();
+  const [post, setPost] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      let response;
-      if (type === 'post') {
-        response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`);
-      } else if (type === 'user') {
-        response = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
+    // Fetch post details when the component mounts
+    const fetchPost = async () => {
+      try {
+        const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`);
+        setPost(response.data);
+      } catch (error) {
+        console.error('Error fetching post details:', error);
       }
-      setData(response.data);
     };
-    fetchData();
-  }, [type, id]);
+
+    fetchPost();
+  }, [id]);
+
+  if (!post) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
-      <h1>{type === 'post' ? 'Post Details' : 'User Details'}</h1>
-      {data && (
-        <div>
-          {type === 'post' ? (
-            <>
-              <h2>{data.title}</h2>
-              <p>{data.body}</p>
-            </>
-          ) : (
-            <>
-              <h2>{data.name}</h2>
-              <p>Email: {data.email}</p>
-              <p>Phone: {data.phone}</p>
-              <p>Website: {data.website}</p>
-            </>
-          )}
-        </div>
-      )}
+      <h1>{post.title}</h1>
+      <p>{post.body}</p>
     </div>
   );
 }

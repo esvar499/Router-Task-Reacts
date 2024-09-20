@@ -1,25 +1,41 @@
-import { useState } from 'react';
+// src/components/Login.js
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform login logic here
-    navigate('/dashboard');
+    // Simple login logic: You can replace it with actual auth logic
+    if (username === 'admin' && password === 'password') {
+      navigate('/dashboard');
+    } else {
+      alert('Invalid credentials');
+    }
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <label>Email:</label>
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <label>Password:</label>
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button type="submit">Login</button>
-    </form>
+    <div>
+      <h1>Login Page</h1>
+      <form onSubmit={handleSubmit}>
+        <input 
+          type="text" 
+          placeholder="Username" 
+          value={username} 
+          onChange={(e) => setUsername(e.target.value)} 
+        />
+        <input 
+          type="password" 
+          placeholder="Password" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)} 
+        />
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 }
 
