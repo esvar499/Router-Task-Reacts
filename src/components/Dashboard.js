@@ -1,13 +1,13 @@
-// src/components/Dashboard.js
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 
 function Dashboard() {
   const [posts, setPosts] = useState([]);
+  const { logout } = useAuth();  // Get the logout function
 
   useEffect(() => {
-    // Fetch posts when the component mounts
     const fetchPosts = async () => {
       try {
         const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
@@ -23,6 +23,7 @@ function Dashboard() {
   return (
     <div>
       <h1>Dashboard</h1>
+      <button onClick={logout}>Logout</button> {/* Logout Button */}
       <h2>Posts</h2>
       <ul>
         {posts.map(post => (

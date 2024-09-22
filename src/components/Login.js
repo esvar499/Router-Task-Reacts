@@ -1,17 +1,19 @@
-// src/components/Login.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();  
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simple login logic: You can replace it with actual auth logic
-    if (username === 'admin' && password === 'password') {
-      navigate('/dashboard');
+    // Simple login validation with default credentials
+    if (username === 'sai' && password === '12345') {
+      login();  // Mark the user as authenticated
+      navigate('/dashboard');  // Navigate to dashboard
     } else {
       alert('Invalid credentials');
     }
