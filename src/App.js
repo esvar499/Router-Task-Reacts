@@ -15,16 +15,22 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           
           {/* Protect these routes with ProtectedRoute */}
-          <Route path="/dashboard" element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          } />
-          <Route path="/details/post/:id" element={
-            <ProtectedRoute>
-              <Details />
-            </ProtectedRoute>
-          } />
+          <Route 
+            path="/dashboard" 
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/details/post/:id" 
+            element={
+              <ProtectedRoute>
+                <Details />
+              </ProtectedRoute>
+            } 
+          />
 
           {/* Redirect the root URL to login */}
           <Route path="/" element={<Navigate to="/login" />} />
