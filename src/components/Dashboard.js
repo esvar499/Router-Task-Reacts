@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
+import './Dashboard.css'; // Import the CSS file
 
 function Dashboard() {
   const [posts, setPosts] = useState([]);
-  const { logout } = useAuth();  // Get the logout function
+  const { logout } = useAuth(); // Get the logout function
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -21,19 +22,25 @@ function Dashboard() {
   }, []);
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <button onClick={logout}>Logout</button> {/* Logout Button */}
-      <h2>Posts</h2>
-      <ul>
-        {posts.map(post => (
-          <li key={post.id}>
-            <Link to={`/details/post/${post.id}`}>
-              {post.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <div className="dashboard-container">
+      <nav className="navbar">
+        <h1 className="navbar-brand">Dashboard</h1>
+        <button onClick={logout} className="logout-button">Logout</button> {/* Logout Button */}
+      </nav>
+
+      <div className="content">
+        <h2 className="post-heading">Posts</h2>
+        <div className="post-list">
+          {posts.map(post => (
+            <div key={post.id} className="post-card">
+              <Link to={`/details/post/${post.id}`}>
+                <h3>{post.title}</h3>
+                <p>{post.body.substring(0, 60)}...</p>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
