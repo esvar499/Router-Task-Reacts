@@ -5,20 +5,20 @@ import axios from 'axios';
 import './Dashboard.css'; // Import the CSS file
 
 function Dashboard() {
-  const [posts, setPosts] = useState([]);
+  const [users, setUsers] = useState([]);
   const { logout } = useAuth(); // Get the logout function
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchUsers = async () => {
       try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-        setPosts(response.data);
+        const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+        setUsers(response.data);
       } catch (error) {
-        console.error('Error fetching posts:', error);
+        console.error('Error fetching users:', error);
       }
     };
 
-    fetchPosts();
+    fetchUsers();
   }, []);
 
   return (
@@ -29,13 +29,14 @@ function Dashboard() {
       </nav>
 
       <div className="content">
-        <h2 className="post-heading">Posts</h2>
+        <h2 className="post-heading">Users</h2> {/* Updated heading */}
         <div className="post-list">
-          {posts.map(post => (
-            <div key={post.id} className="post-card">
-              <Link to={`/details/post/${post.id}`}>
-                <h3>{post.title}</h3>
-                <p>{post.body.substring(0, 60)}...</p>
+          {users.map(user => (
+            <div key={user.id} className="post-card">
+              <Link to={`/details/user/${user.id}`}>
+                <h3>{user.name}</h3> {/* Display user name */}
+                <p>Username: {user.username}</p> {/* Display username */}
+                <p>Email: {user.email}</p> {/* Display email */}
               </Link>
             </div>
           ))}
