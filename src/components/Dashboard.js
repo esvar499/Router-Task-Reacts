@@ -29,11 +29,11 @@ function Dashboard() {
       </nav>
 
       <div className="content">
-        <h2 className="post-heading">Users</h2>
+        <h2 className="post-heading">Users</h2> {/* Updated heading */}
         <div className="post-list">
           {users.map(user => (
             <div key={user.id} className="post-card">
-              <Link to={`/details/${user.id}`}> {/* Corrected the path to user details */}
+              <Link to={`/details/user/${user.id}`}>
                 <h3>{user.name}</h3> {/* Display user name */}
                 <p>Username: {user.username}</p> {/* Display username */}
                 <p>Email: {user.email}</p> {/* Display email */}

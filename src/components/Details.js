@@ -5,33 +5,30 @@ import axios from 'axios';
 
 function Details() {
   const { id } = useParams();
-  const [user, setUser] = useState(null); // Corrected to handle user data
+  const [post, setPost] = useState(null);
 
   useEffect(() => {
-    // Fetch user details when the component mounts
-    const fetchUser = async () => {
+    // Fetch post details when the component mounts
+    const fetchPost = async () => {
       try {
-        const response = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
-        setUser(response.data);
+        const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`);
+        setPost(response.data);
       } catch (error) {
-        console.error('Error fetching user details:', error);
+        console.error('Error fetching post details:', error);
       }
     };
 
-    fetchUser();
+    fetchPost();
   }, [id]);
 
-  if (!user) {
+  if (!post) {
     return <div>Loading...</div>;
   }
 
   return (
     <div>
-      <h1>{user.name}</h1>
-      <p>Email: {user.email}</p>
-      <p>Username: {user.username}</p>
-      <p>Phone: {user.phone}</p>
-      <p>Website: {user.website}</p>
+      <h1>{post.title}</h1>
+      <p>{post.body}</p>
     </div>
   );
 }

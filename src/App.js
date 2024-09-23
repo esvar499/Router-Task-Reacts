@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';  
+import { AuthProvider } from '../src/context/AuthContext';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
 import Details from './components/Details';
-import ProtectedRoute from './components/ProtectedRoute';  
+import ProtectedRoute from './components/ProtectedRoute';  // Import ProtectedRoute
 
 function App() {
   return (
@@ -15,22 +15,16 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           
           {/* Protect these routes with ProtectedRoute */}
-          <Route 
-            path="/dashboard" 
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/details/post/:id" 
-            element={
-              <ProtectedRoute>
-                <Details />
-              </ProtectedRoute>
-            } 
-          />
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/details/post/:id" element={
+            <ProtectedRoute>
+              <Details />
+            </ProtectedRoute>
+          } />
 
           {/* Redirect the root URL to login */}
           <Route path="/" element={<Navigate to="/login" />} />
