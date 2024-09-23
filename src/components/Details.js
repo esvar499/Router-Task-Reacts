@@ -1,34 +1,37 @@
-// src/components/Details.js
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function Details() {
-  const { id } = useParams();
-  const [post, setPost] = useState(null);
+  const { id } = useParams(); // Get the user ID from the route params
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Fetch post details when the component mounts
-    const fetchPost = async () => {
+    const fetchUserDetails = async () => {
       try {
-        const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`);
-        setPost(response.data);
+        const response = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
+        setUser(response.data);
       } catch (error) {
-        console.error('Error fetching post details:', error);
+        console.error('Error fetching user details:', error);
       }
     };
 
-    fetchPost();
+    fetchUserDetails();
   }, [id]);
 
-  if (!post) {
-    return <div>Loading...</div>;
+  if (!user) {
+    return <div>Loading user details...</div>;
   }
 
   return (
     <div>
-      <h1>{post.title}</h1>
-      <p>{post.body}</p>
+      <h1>User Details for {user.name}</h1>
+      <p><strong>Username:</strong> {user.username}</p>
+      <p><strong>Email:</strong> {user.email}</p>
+      <p><strong>Phone:</strong> {user.phone}</p>
+      <p><strong>Website:</strong> {user.website}</p>
+      <p><strong>Company:</strong> {user.company.name}</p>
+      <p><strong>Address:</strong> {user.address.street}, {user.address.city}</p>
     </div>
   );
 }

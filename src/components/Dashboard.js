@@ -11,6 +11,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        // Corrected full URL for fetching users
         const response = await axios.get('https://jsonplaceholder.typicode.com/users');
         setUsers(response.data);
       } catch (error) {
@@ -33,6 +34,7 @@ function Dashboard() {
         <div className="post-list">
           {users.map(user => (
             <div key={user.id} className="post-card">
+              {/* Corrected link to user details */}
               <Link to={`/details/user/${user.id}`}>
                 <h3>{user.name}</h3> {/* Display user name */}
                 <p>Username: {user.username}</p> {/* Display username */}
