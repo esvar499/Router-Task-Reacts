@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import './Login.css'; // Import the CSS file
+import './Login.css';  // Importing CSS file for Login styling
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -11,10 +11,9 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simple login validation with default credentials
-    if (username === 'sai' && password === '12345') {
-      login(); // Mark the user as authenticated
-      navigate('/dashboard'); // Navigate to dashboard
+    if (username === 'admin' && password === 'password') {
+      login();  // Mark the user as authenticated
+      navigate('/dashboard');  // Navigate to dashboard
     } else {
       alert('Invalid credentials');
     }
@@ -25,17 +24,17 @@ function Login() {
       <div className="login-box">
         <h1 className="login-title">Login</h1>
         <form onSubmit={handleSubmit} className="login-form">
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
+          <input 
+            type="text" 
+            placeholder="Username" 
+            value={username} 
             onChange={(e) => setUsername(e.target.value)}
             className="login-input"
           />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
+          <input 
+            type="password" 
+            placeholder="Password" 
+            value={password} 
             onChange={(e) => setPassword(e.target.value)}
             className="login-input"
           />
